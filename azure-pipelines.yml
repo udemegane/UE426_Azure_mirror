@@ -13,7 +13,16 @@ pool:
 trigger:
 - master
 steps:   
+- task: CopyFiles@2
+  inputs:
+    contents: '$(Build.SourcesDirectory)/AzureTest_cpp/Source/**'
+    targetFolder: $(Build.ArtifactStagingDirectory)
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: MyBuildOutputs    
 - script: |
+    cd /tmp && rm -rf /tmp/$(TmpRepoDir)
     git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" clone --mirror $(Build.Repository.Uri) $(TmpRepoDir)
-    git -C $(Build.SourcesDirectory)/AzureTest_cpp/Source push --mirror https://oauth2:$(Github_Token)@$(GitHubPath)
+    git -C /tmp/$(TmpRepoDir) push --mirror https://oauth2:$(Github_Token)@$(GitHubPath)
   displayName: 'Copy to GitHub'
