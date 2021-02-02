@@ -31,10 +31,10 @@ steps:
 
 - script: |
     cd /tmp/$(TmpRepoDir)
-    git add . 
+    git add -A
           if ! (git diff --quiet && git diff --staged --quiet); then
             git commit -m "Add: changes ($GITHUB_SHA)" 
           fi
-    git push https://$(Github_Username):${Github_Token}@github.com/$(Github_Username)/UE426_azuretest_mirror.git
+    git push https://udemegane:$(Github_Token)@github.com/udemegane/UE426_azuretest_mirror.git
   displayName: 'Copy to Github'
 
