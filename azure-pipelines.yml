@@ -42,8 +42,8 @@ steps:
 
 - script: |
     cd /tmp/$(TmpRepoDir)
+    echo | ls -l
     git add -A
-    git branch -M main
     git commit -m "Mirror Source code from Azure repos"  
     git push -u origin main 
   displayName: 'Copy to Github'
