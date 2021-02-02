@@ -22,6 +22,8 @@ steps:
 
 - script: |
     cd /tmp && rm -rf /tmp/$(TmpRepoDir)
+    cd /tmp/$(TmpRepoDir)
+    git init
   displayName: 'Reset tmp folder'
 
 - task: CopyFiles@2
@@ -30,8 +32,6 @@ steps:
     targetFolder: /tmp/$(TmpRepoDir)
 
 - script: |
-    cd /tmp/$(TmpRepoDir)
-    git init
     git add -A
           if ! (git diff --quiet && git diff --staged --quiet); then
             git commit -m "Add: changes ($GITHUB_SHA)" 
