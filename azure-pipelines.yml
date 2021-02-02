@@ -15,5 +15,5 @@ trigger:
 steps:   
 - script: |
     git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" clone --mirror $(Build.Repository.Uri) $(TmpRepoDir)
-    git -C /AzureTest_cpp/Source push --mirror https://oauth2:$(Github_Token)@$(GitHubPath)
+    git -C $(Build.SourcesDirectory)/AzureTest_cpp/Source push --mirror https://oauth2:$(Github_Token)@$(GitHubPath)
   displayName: 'Copy to GitHub'
