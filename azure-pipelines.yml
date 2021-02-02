@@ -4,30 +4,18 @@
 # https://aka.ms/yaml
 
 variables:
-  AppName: UE4_azure_github_mirror
-  OutputDir: _buildOutput
-  TmpRepoDir: _repo
-  GitHubPath: github.com/udemegane/UE426_azuretest_mirror.git
-  Github_Username: udemegane
-  Github_email: cappuccino1204.ck@gmail.com
+
 pool:
   vmImage: 'ubuntu-latest'
 trigger:
 - master
 steps:
-- task: CopyFiles@2
+- task: swellaby.mirror-git-repository.mirror-git-repository-vsts-task.mirror-git-repository-vsts-task@1
+  displayName: 'Mirror Git Repository'
   inputs:
-    contents: '$(Build.SourcesDirectory)/AzureTest_cpp/Source'
-    targetFolder: $(Build.ArtifactStagingDirectory)
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: $(Build.ArtifactStagingDirectory)
-    artifactName: MyBuildOutputs    
-- script: |
-    cd /tmp && rm -rf /tmp/$(TmpRepoDir)
-    git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" clone --mirror $(Build.Repository.Uri) $(TmpRepoDir)
-    cd $(TmpRepoDir) && ls
-    git -C /tmp/$(TmpRepoDir) push --mirror https://udemegane:$(Github_Token)@github.com/udemegane/UE426_azuretest_mirror.git
-  displayName: 'Copy to GitLab'
+    sourceGitRepositoryUri: 'https://github.com/udemegane/UE426_Azure_mirror.git'
+    sourceVerifySSLCertificate: false
+    destinationGitRepositoryUri: 'https://github.com/udemegane/UE426_Azure_mirror.git'
+    destinationGitRepositoryPersonalAccessToken: '$(destVar)'
 
 
