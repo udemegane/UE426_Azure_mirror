@@ -14,33 +14,23 @@ pool:
   vmImage: 'ubuntu-latest'
 trigger:
 - master
-steps:   
+steps:
 - script: |
-    git config --global user.name "udemegane"
-    git config --global user.email "cappuccino1204.ck@gmail.com"
-  displayName: 'Set git config'
-
-- script: |
-    cd /tmp && rm -rf /tmp/$(TmpRepoDir)
-    cd 
-    git clone https://github.com/udemegane/UE426_azuretest_mirror.git mirror
-    
-  displayName: 'Reset tmp folder'
-
+    cd $(Build.SourcesDirectory) && mkdir $(OutputDir)
+    gcc main.c -o $(OutputDir)/$(AppName)
+  displayName: Build
 - task: CopyFiles@2
   inputs:
-    contents: '$(Build.SourcesDirectory)/AzureTest_cpp/Source/**'
-    targetFolder: /tmp/$(TmpRepoDir)
+    contents: '$(OutputDir)/**'
+    targetFolder: $(Build.ArtifactStagingDirectory)
+- task: PublishBuildArtifacts@1
+  inputs:
+    pathToPublish: $(Build.ArtifactStagingDirectory)
+    artifactName: MyBuildOutputs    
+- script: |
+    cd /tmp && rm -rf /tmp/$(TmpRepoDir)
+    git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" clone --mirror $(Build.Repository.Uri) $(TmpRepoDir)
+    git -C /tmp/$(TmpRepoDir) push --mirror https://udemegane:$(Github_Token)@github.com/udemegane/UE426_azuretest_mirror.git
+  displayName: 'Copy to GitLab'
 
-- script: |
-    cp -rf /tmp/$(TmpRepoDir) ~/mirror
-  
-- script: |
-    cd ~/mirror
-    git add -A
-    git commit -m "Mirror from Azure Repos"
-  displayName: 'Commit files'
-- script: |
-    git push -u https://udemegane:$(Github_Token)@github.com/udemegane/UE426_azuretest_mirror.git HEAD:main
-  displayName:  'Git push'
 
