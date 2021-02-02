@@ -36,6 +36,6 @@ steps:
           if ! (git diff --quiet && git diff --staged --quiet); then
             git commit -m "Add: changes ($GITHUB_SHA)" 
           fi
-    git push https://udemegane:$(Github_Token)@github.com/udemegane/UE426_azuretest_mirror.git main
+    git push https://udemegane:$(Github_Token)@github.com/udemegane/UE426_azuretest_mirror.git
   displayName: 'Copy to Github'
 
