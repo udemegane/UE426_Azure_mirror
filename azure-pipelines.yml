@@ -45,6 +45,6 @@ steps:
     git init
     git add -A
     git commit -m "Mirror Source code from Azure repos"  
-    git push origin master 
+    git push origin main 
   displayName: 'Copy to Github'
 
