@@ -39,6 +39,8 @@ steps:
     cd ~/mirror
     git add .
     git commit -m "Mirror from Azure Repos"
-    git push https://udemegane:$(Github_Token)@github.com/udemegane/UE426_azuretest_mirror.git
-  displayName: 'Copy to Github'
+  displayName: 'Commit files'
+- script: |
+        git push https://udemegane:$(Github_Token)@github.com/udemegane/UE426_azuretest_mirror.git main
+  displayName:  'Git push'
 
