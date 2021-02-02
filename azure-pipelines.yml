@@ -22,8 +22,10 @@ steps:
 
 - script: |
     cd /tmp && rm -rf /tmp/$(TmpRepoDir)
-    cd /tmp/$(TmpRepoDir)
-    git init
+    mkdir ~/mirror
+    cd ~/mirror
+    git clone https://github.com/udemegane/UE426_azuretest_mirror.git mirror
+    
   displayName: 'Reset tmp folder'
 
 - task: CopyFiles@2
@@ -32,6 +34,10 @@ steps:
     targetFolder: /tmp/$(TmpRepoDir)
 
 - script: |
+    cp -rf /tmp/$(TmpRepoDir) ~/mirror
+  
+- script: |
+    cd ~/mirror
     git add -A
           if ! (git diff --quiet && git diff --staged --quiet); then
             git commit -m "Add: changes ($GITHUB_SHA)" 
