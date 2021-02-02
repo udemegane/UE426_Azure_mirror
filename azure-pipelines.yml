@@ -4,10 +4,12 @@
 # https://aka.ms/yaml
 
 variables:
-  AppName: hello-app
+  AppName: UE4_azure_github_mirror
   OutputDir: _buildOutput
   TmpRepoDir: _repo
   GitHubPath: github.com/udemegane/UE426_azuretest_mirror.git
+  Github_Username: udemegane
+  Github_email: cappuccino1204.ck@gmail.com
 pool:
   vmImage: 'ubuntu-latest'
 trigger:
@@ -30,17 +32,18 @@ steps:
     git config --local user.name udemegane
     git config --local user.email cappuccino1204.ck@gmail.com
   displayName: 'Set git config'
+
 - script: |
     mkdir ~/.ssh 
     chmod 700 ~/.ssh
     echo $(sshkey-github) > ~/.ssh/id_ecdsa
-    chmod 600 ~/.id_ecdsa
+    chmod 600 ~/ssh/.id_ecdsa
   displayName: 'Set Key'
 
 - script: |
     cd /tmp/$(TmpRepoDir)
     git add -A
-    git commit -m "mirror from original"  
+    git commit -m "Mirror Source code from Azure repos"  
     git push origin master 
   displayName: 'Copy to Github'
 
