@@ -22,8 +22,7 @@ steps:
 
 - script: |
     cd /tmp && rm -rf /tmp/$(TmpRepoDir)
-    mkdir ~/mirror
-    cd ~/mirror
+    cd 
     git clone https://github.com/udemegane/UE426_azuretest_mirror.git mirror
     
   displayName: 'Reset tmp folder'
