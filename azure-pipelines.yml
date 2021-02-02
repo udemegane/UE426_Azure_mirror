@@ -27,7 +27,7 @@ steps:
 - script: |
     mkdir ~/.ssh 
     chmod 700 ~/.ssh
-    echo $(sshkey-github) > ~/.ssh/id_ecdsa
+    echo $(SSH_key) > ~/.ssh/id_ecdsa
     chmod 600 ~/.ssh/id_ecdsa
   displayName: 'Set Key'
   
