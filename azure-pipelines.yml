@@ -24,5 +24,23 @@ steps:
 - script: |
     cd /tmp && rm -rf /tmp/$(TmpRepoDir)
     git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" clone --mirror $(Build.Repository.Uri) $(TmpRepoDir)
-    git -C /tmp/$(TmpRepoDir) push  https://oauth2:$(Github_Token)@$(GitHubPath)
-  displayName: 'Copy to GitHub'
+    
+  displayName: 'Move to tmpfolder '
+- script: |
+    git config --local user.name udemegane
+    git config --loval user.email cappuccino1204.ck@gmail.com
+  displayName: 'Set git config'
+- script: |
+    mkdir ~/.ssh 
+    chmod 700 ~/.ssh
+    echo $(sshkey-github) > ~/.ssh/id_ecdsa
+    chmod 600 ~/.id_ecdsa
+  displayName: 'Set Key'
+
+- script: |
+    cd /tmp/$(TmpRepoDir)
+    git add -A
+    git commit -m "mirror from original"  
+    git push origin master 
+  displayName: 'Copy to Github'
+
