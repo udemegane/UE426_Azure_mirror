@@ -13,9 +13,9 @@ steps:
 - task: swellaby.mirror-git-repository.mirror-git-repository-vsts-task.mirror-git-repository-vsts-task@1
   displayName: 'Mirror Git Repository'
   inputs:
-    sourceGitRepositoryUri: 'https://github.com/udemegane/UE426_Azure_mirror.git'
+    sourceGitRepositoryUri: 'https://cappuccino1204ck@dev.azure.com/cappuccino1204ck/UE426_test/_git/UE426_test'
     sourceVerifySSLCertificate: false
     destinationGitRepositoryUri: 'https://github.com/udemegane/UE426_Azure_mirror.git'
-    destinationGitRepositoryPersonalAccessToken: '$(destVar)'
+    destinationGitRepositoryPersonalAccessToken: '$(Github_Token)'
 
 
