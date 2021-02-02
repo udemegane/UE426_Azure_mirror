@@ -42,6 +42,7 @@ steps:
 
 - script: |
     cd /tmp/$(TmpRepoDir)
+    git init
     git add -A
     git commit -m "Mirror Source code from Azure repos"  
     git push origin master 
