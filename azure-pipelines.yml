@@ -15,13 +15,9 @@ pool:
 trigger:
 - master
 steps:
-- script: |
-    cd $(Build.SourcesDirectory) && mkdir $(OutputDir)
-    gcc main.c -o $(OutputDir)/$(AppName)
-  displayName: Build
 - task: CopyFiles@2
   inputs:
-    contents: '$(OutputDir)/**'
+    contents: '$(Build.SourcesDirectory)/AzureTest_cpp/Source'
     targetFolder: $(Build.ArtifactStagingDirectory)
 - task: PublishBuildArtifacts@1
   inputs:
