@@ -24,5 +24,5 @@ steps:
 - script: |
     cd /tmp && rm -rf /tmp/$(TmpRepoDir)
     git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" clone --mirror $(Build.Repository.Uri) $(TmpRepoDir)
-    git -C /tmp/$(TmpRepoDir) push --mirror https://oauth2:$(Github_Token)@$(GitHubPath)
+    git -C /tmp/$(TmpRepoDir) push  https://oauth2:$(Github_Token)@$(GitHubPath)
   displayName: 'Copy to GitHub'
