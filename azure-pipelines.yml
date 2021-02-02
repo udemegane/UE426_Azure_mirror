@@ -4,6 +4,7 @@
 # https://aka.ms/yaml
 
 variables:
+  DestRepo: 'https://github.com/udemegane/UE426_Azure_mirror.git'
 
 pool:
   vmImage: 'ubuntu-latest'
