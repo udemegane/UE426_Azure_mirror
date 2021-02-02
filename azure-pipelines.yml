@@ -16,8 +16,8 @@ trigger:
 - master
 steps:   
 - script: |
-    git config --global user.name udemegane
-    git config --global user.email cappuccino1204.ck@gmail.com
+    git config --global user.name "udemegane"
+    git config --global user.email "cappuccino1204.ck@gmail.com"
   displayName: 'Set git config'
 
 - script: |
@@ -31,6 +31,7 @@ steps:
 
 - script: |
     cd /tmp/$(TmpRepoDir)
+    git init
     git add -A
           if ! (git diff --quiet && git diff --staged --quiet); then
             git commit -m "Add: changes ($GITHUB_SHA)" 
