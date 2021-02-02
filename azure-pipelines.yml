@@ -19,6 +19,6 @@ steps:
     sourceGitRepositoryCloneDirectoryName: 'Source'
     destinationGitRepositoryUri: 'https://github.com/udemegane/UE426_Azure_mirror.git'
     destinationGitRepositoryPersonalAccessToken: '$(Github_Token)'
-    sourceGitRepositoryPersonalAccessToken: 
+    sourceGitRepositoryPersonalAccessToken: '$(Azure_Token)'
 
 
