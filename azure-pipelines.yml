@@ -1,0 +1,19 @@
+# Starter pipeline
+# Start with a minimal pipeline that you can customize to build and deploy your code.
+# Add steps that build, run tests, deploy, and more:
+# https://aka.ms/yaml
+
+variables:
+  AppName: hello-app
+  OutputDir: _buildOutput
+  TmpRepoDir: _repo
+  GitHubPath: github.com/udemegane/UE426_azuretest_mirror.git
+pool:
+  vmImage: 'ubuntu-latest'
+trigger:
+- master
+steps:   
+- script: |
+    git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" clone --mirror $(Build.Repository.Uri) $(TmpRepoDir)
+    git -C /AzureTest_cpp/Source push --mirror https://oauth2:$(Github_Token)@$(GitHubPath)
+  displayName: 'Copy to GitHub'
