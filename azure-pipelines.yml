@@ -28,7 +28,8 @@ steps:
     mkdir ~/.ssh 
     chmod 700 ~/.ssh
     echo $(SSH_key) > ~/.ssh/id_ed25519
-    chmod 600 ~/.ssh/
+    echo $(Hosts) > ~/.ssh/known_hosts
+    chmod 600 ~/.ssh/id_ed25519
   displayName: 'Set Key'
   
 - script: |
