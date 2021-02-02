@@ -29,8 +29,8 @@ steps:
     
   displayName: 'Move to tmpfolder '
 - script: |
-    git config --local user.name udemegane
-    git config --local user.email cappuccino1204.ck@gmail.com
+    git config --global user.name udemegane
+    git config --global user.email cappuccino1204.ck@gmail.com
   displayName: 'Set git config'
 
 - script: |
