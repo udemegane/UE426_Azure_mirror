@@ -33,8 +33,8 @@ steps:
     cd /tmp/$(TmpRepoDir)
     git add . 
           if ! (git diff --quiet && git diff --staged --quiet); then
-            git commit -m "Add: changes ($GITHUB_SHA)"    # ハッシュをメモってコミット
+            git commit -m "Add: changes ($GITHUB_SHA)" 
           fi
-    git push https://$(Github_Username):${Github_Token}@github.com/$(Github_Username)/UE426_azuretest_mirror
+    git push https://$(Github_Username):${Github_Token}@github.com/$(Github_Username)/UE426_azuretest_mirror.git
   displayName: 'Copy to Github'
 
