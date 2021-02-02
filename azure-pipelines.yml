@@ -15,23 +15,14 @@ pool:
 trigger:
 - master
 steps:   
-- task: CopyFiles@2
-  inputs:
-    contents: '$(Build.SourcesDirectory)/AzureTest_cpp/Source/**'
-    targetFolder: $(Build.ArtifactStagingDirectory)
-- task: PublishBuildArtifacts@1
-  inputs:
-    pathToPublish: $(Build.ArtifactStagingDirectory)
-    artifactName: MyBuildOutputs    
-- script: |
-    cd /tmp && rm -rf /tmp/$(TmpRepoDir)
-    git -c http.extraheader="AUTHORIZATION: bearer $(System.AccessToken)" clone --mirror $(Build.Repository.Uri) $(TmpRepoDir)
-    
-  displayName: 'Move to tmpfolder '
 - script: |
     git config --global user.name udemegane
     git config --global user.email cappuccino1204.ck@gmail.com
   displayName: 'Set git config'
+
+- script: |
+    cd /tmp && rm -rf /tmp/$(TmpRepoDir)
+  displayName: 'Reset tmp folder'
 
 - script: |
     mkdir ~/.ssh 
@@ -39,9 +30,23 @@ steps:
     echo $(sshkey-github) > ~/.ssh/id_ecdsa
     chmod 600 ~/.ssh/id_ecdsa
   displayName: 'Set Key'
+  
+- script: |
+    mkdir ~/mirror
+    cd ~/mirror
+    git clone $(MIRROR_REPOSITORY)
+  displayName: 'Clone mirror repo'
+
+- task: CopyFiles@2
+  inputs:
+    contents: '$(Build.SourcesDirectory)/AzureTest_cpp/Source/**'
+    targetFolder: /tmp/$(TmpRepoDir)
 
 - script: |
-    cd /tmp/$(TmpRepoDir)
+    cp -r -f /tmp/$(TmpRepoDir) ~/mirror
+
+- script: |
+    cd ~/mirror
     echo | ls -l
     git add -A
     git commit -m "Mirror Source code from Azure repos"  
